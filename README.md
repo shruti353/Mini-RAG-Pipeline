@@ -44,22 +44,22 @@ streamlit run app.py
 
 ### Test Questions
 
-Try:
+#### Try:
 
-“What factors affect construction project delays?”
+1) “What factors affect construction project delays?”
 
-“What safety rules are mentioned in the documents?”
+2) “What safety rules are mentioned in the documents?”
 
-“What are the material requirements?”
+3) “What are the material requirements?”
 
 ### Evaluation Criteria
 
-Relevance of retrieved chunks
+✔ Relevance of retrieved chunks
 
-Groundedness (no hallucinations)
+✔ Groundedness (no hallucinations)
 
-Completeness
+✔ Completeness
 
-Latency
+✔ Latency
 
-Clarity of final answer
+✔ Clarity of final answer
