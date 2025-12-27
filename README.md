@@ -1,65 +1,240 @@
-# Mini RAG Pipeline – Construction Marketplace Assistant
+# 🏗️ Mini RAG – Retrieval Augmented Generation Pipeline
+with Hybrid Search • Citations • Highlighting • PDF Support • Streamlit UI
 
-This project implements a Retrieval-Augmented Generation (RAG) system designed for answering questions using construction-related internal documents.
+A production-grade Retrieval-Augmented Generation (RAG) system designed for a construction marketplace AI assistant.
+The assistant answers questions strictly from internal documents using:
 
-## The system uses:
+🔍 Hybrid Retrieval (BM25 + Embeddings)
 
-MiniLM-L6-v2 for embeddings
+🧩 Document Chunking
 
-FAISS for semantic search
+🧠 LLM Grounded Answer Generation
 
-Mistral-7B (OpenRouter) for grounded answer generation
+✨ Sentence Highlighting
 
-Streamlit for a working chatbot UI
+📌 Citations
+
+📥 JSON Report Export
+
+📄 PDF/TXT Upload Support
+
+🎨 Dark Theme UI
+
+🗂️ Chat History
 
 ## Features
 
-✔ Document chunking
+## 1. Document Chunking
 
-✔ Embedding via SentenceTransformers
+Upload PDF or TXT files
 
-✔ FAISS vector index
+Automatic PDF → text conversion
 
-✔ Semantic retrieval
+Splits documents into overlapping chunks
 
-✔ Grounded LLM answer generation
+Stored for retrieval + display
 
-✔ Streamlit chatbot interface
+## 2. Hybrid Retrieval
 
-✔ Transparent display of retrieved context
+Choose retrieval mode:
 
-### Setup Instructions
+Mode	Description
+Hybrid (BM25 + Embeddings)	Best relevance, combines keyword + semantic search
+Embeddings Only	Pure semantic similarity using MiniLM
+BM25 Only	Fast keyword-based retrieval
+## 3. LLM Answer Generation
 
-1. Install dependencies
+Uses OpenRouter to query high-quality open-source models:
 
+Mistral-7B-Instruct
+
+LLaMA-3-8B
+
+Qwen-2.5-7B
+
+DeepSeek-R1-Distill
+
+All answers are:
+
+grounded to retrieved text
+
+citation-enforced
+
+formatting-clean
+
+✨ 4. Premium UI Features
+
+## Sentence highlighting
+
+Collapsible chunk boxes
+
+Dark mode
+
+Chat history persistence
+
+JSON report export
+
+## Architecture
+User Query
+      ↓
+Chunked Documents  ← PDF/TXT Upload
+      ↓
+Hybrid Retrieval (BM25 + Embeddings)
+      ↓
+Top Relevant Chunks (Highlighted)
+      ↓
+LLM (via OpenRouter) — Grounded Answer Generation
+      ↓
+Answer + Citations + JSON Export
+
+## Project Structure
+Mini-RAG-Pipeline/
+│
+├── app.py                     # Streamlit UI (premium version)
+├── rag_pipeline.py            # Core RAG logic: BM25, embeddings, hybrid search
+├── requirements.txt           # Dependencies
+├── README.md                  # Documentation
+│
+├── /data                      # PDF/TXT documents
+│
+├── /outputs                   # JSON exported responses
+│
+└── /notebooks
+     └── evaluation.ipynb      # Optional evaluation notebook
+
+## Installation
+1. Clone the repository
+git clone https://github.com/YOUR_USERNAME/Mini-RAG-Pipeline.git
+cd Mini-RAG-Pipeline
+
+2. Create & activate virtual environment
+
+Windows
+
+python -m venv venv
+venv\Scripts\activate
+
+
+Mac/Linux
+
+python3 -m venv venv
+source venv/bin/activate
+
+3. Install requirements
 pip install -r requirements.txt
 
-2. Export your OpenRouter API key
+4. Set OpenRouter API key
+
+PowerShell
+
+setx OPENROUTER_API_KEY "your_key_here"
+
+
+Mac/Linux
 
 export OPENROUTER_API_KEY="your_key_here"
 
-3. Run Streamlit app
-
+### Run the RAG Application
 streamlit run app.py
 
-### Test Questions
 
-#### Try:
+Then open:
 
-1) “What factors affect construction project delays?”
+👉 http://localhost:8501/
 
-2) “What safety rules are mentioned in the documents?”
+## How the System Works
+### 1. Upload Documents
 
-3) “What are the material requirements?”
+PDF → automatically converted to text
 
-### Evaluation Criteria
+TXT → loaded directly
 
-✔ Relevance of retrieved chunks
+Chunked into ~250 token windows
 
-✔ Groundedness (no hallucinations)
+### 2. Retrieve Top Chunks
 
-✔ Completeness
+Depending on retrieval mode:
 
-✔ Latency
+BM25
 
-✔ Clarity of final answer
+Embeddings
+
+Hybrid (BM25 + Embeddings)
+
+### 3. LLM Generates Grounded Answer
+
+LLM is instructed to:
+
+Use only retrieved chunks
+
+Add citations
+
+Avoid hallucinations
+
+### 4. Answer Display
+
+Highlighted matching sentences
+
+Collapsible chunk boxes
+
+JSON export available
+
+## Example Query
+
+“What factors affect construction project delays?”
+
+System Output Includes:
+
+Retrieved chunk text
+
+Highlighted matching parts
+
+## Final answer:
+
+Bullet points
+
+Clean formatting
+
+Citations (from Chunk X)
+
+## Evaluation (Optional)
+
+Notebook includes:
+
+Recall@k
+
+Relevance scoring
+
+Hallucination detection
+
+Model comparison
+
+Chunk-level error analysis
+
+## Tech Stack
+Component	Tool
+Embeddings	Sentence-Transformers (MiniLM-L6-v2)
+Vector Search	FAISS
+Keyword Search	BM25 (rank_bm25)
+LLM Inference	OpenRouter API
+Frontend	Streamlit
+Backend	Python
+📦 Exporting Reports
+
+You can download:
+
+Retrieved chunks
+
+Final answer
+
+Model used
+
+Retrieval mode
+
+Timestamp
+
+as a .json file.
+
+### 🧑‍💻 Developer: Shruti Thakkar
+
+AI/ML Engineer — RAG • NLP • LLMs
