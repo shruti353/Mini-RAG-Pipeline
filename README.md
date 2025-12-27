@@ -15,22 +15,31 @@ Streamlit for a working chatbot UI
 ## Features
 
 ✔ Document chunking
+
 ✔ Embedding via SentenceTransformers
+
 ✔ FAISS vector index
+
 ✔ Semantic retrieval
+
 ✔ Grounded LLM answer generation
+
 ✔ Streamlit chatbot interface
+
 ✔ Transparent display of retrieved context
 
 ### Setup Instructions
 
 1. Install dependencies
+
 pip install -r requirements.txt
 
 2. Export your OpenRouter API key
+
 export OPENROUTER_API_KEY="your_key_here"
 
 3. Run Streamlit app
+
 streamlit run app.py
 
 ### Test Questions
