@@ -155,15 +155,18 @@ if ask:
             highlighted = [highlight_matches(c, query) for c in retrieved]
 
             # ---- GENERATE ANSWER ----
-            llm_model = model_options[chosen_model]
-
             completion = client.chat.completions.create(
-                model=llm_model,
-                messages=[
-                    {"role": "system", "content": "Answer ONLY from the context. Provide citations (Chunk X)."},
-                    {"role": "user", "content": f"Context:\n{retrieved}\n\nQuestion: {query}"}
-                ]
+            model=llm_model,
+            messages=[
+            {"role": "system", "content": "Answer ONLY from the context. Provide citations (Chunk X)."},
+            {"role": "user", "content": f"Context:\n{retrieved}\n\nQuestion: {query}"}
+            ],
+            extra_headers={
+            "HTTP-Referer": "https://rag-assistant-shruti.streamlit.app",
+            "X-Title": "Mini RAG Premium"
+            }
             )
+
             answer = completion.choices[0].message.content
 
             # ---- SAVE HISTORY ----
