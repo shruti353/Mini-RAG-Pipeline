@@ -1,6 +1,7 @@
 streamlit
-sentence-transformers
 faiss-cpu
+sentence-transformers
 numpy
-openai
-tqdm
+PyPDF2
+rank-bm25
+requests
