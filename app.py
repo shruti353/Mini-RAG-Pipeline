@@ -157,10 +157,34 @@ if ask:
             # ---- GENERATE ANSWER ----
             completion = client.chat.completions.create(
             model=llm_model,
-            messages=[
-            {"role": "system", "content": "Answer ONLY from the context. Provide citations (Chunk X)."},
-            {"role": "user", "content": f"Context:\n{retrieved}\n\nQuestion: {query}"}
-            ],
+messages = [
+    {
+        "role": "system",
+        "content": (
+            "You are a helpful assistant that answers strictly based on the provided document chunks. "
+            "Follow these rules:\n"
+            "1. Use ONLY the information from the retrieved chunks.\n"
+            "2. Never use outside knowledge.\n"
+            "3. If not found in context, say: 'The document does not provide this information.'\n"
+            "4. Provide a short, clear answer.\n"
+            "5. Add citations like (Chunk 1).\n"
+            "6. Never output JSON, <OUT>, brackets, or weird tokens.\n"
+            "7. Never hallucinate.\n"
+        )
+    },
+    {
+        "role": "user",
+        "content": (
+            "Retrieved document chunks:\n\n"
+            + "\n\n---\n\n".join(
+                [f"Chunk {i+1}:\n{chunk}" for i, chunk in enumerate(retrieved)]
+            )
+            + f"\n\nQuestion: {query}\n\n"
+            + "Give the final answer below:"
+        ),
+    },
+]
+
             extra_headers={
             "HTTP-Referer": "https://rag-assistant-shruti.streamlit.app",
             "X-Title": "Mini RAG Premium"
