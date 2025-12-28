@@ -95,7 +95,7 @@ uploaded_files = st.file_uploader(
 documents = []
 
 if uploaded_files:
-    st.subheader("📘 Loaded Documents")
+    st.subheader(" Loaded Documents")
 
     for file in uploaded_files:
         text = extract_text(file)
@@ -109,7 +109,7 @@ if uploaded_files:
 # -----------------------------
 # RETRIEVAL MODE
 # -----------------------------
-st.subheader("🔍 Retrieval Mode")
+st.subheader(" Retrieval Mode")
 retrieval_mode = st.radio(
     "Choose retrieval method:",
     ["Hybrid (BM25 + Embeddings)", "Embeddings Only", "BM25 Only"]
@@ -118,13 +118,13 @@ retrieval_mode = st.radio(
 # -----------------------------
 # MODEL SELECTOR
 # -----------------------------
-st.subheader("🧠 Choose the LLM")
+st.subheader(" Choose the LLM")
 chosen_model = st.selectbox("Select model:", list(model_options.keys()))
 
 # -----------------------------
 # QUESTION BOX
 # -----------------------------
-st.subheader("💬 Ask a Question")
+st.subheader(" Ask a Question")
 query = st.text_input("Your question:")
 
 ask = st.button("Ask")
@@ -211,12 +211,12 @@ messages = [
 if st.session_state.chat_history:
     last = st.session_state.chat_history[-1]
 
-    st.subheader("📌 Retrieved Chunks (with Highlights)")
+    st.subheader(" Retrieved Chunks (with Highlights)")
     for i, c in enumerate(last["retrieved_chunks"], 1):
         st.markdown(f"**Chunk {i}:**")
         st.markdown(f"<div class='chunk-box'>{highlight_matches(c, query)}</div>", unsafe_allow_html=True)
 
-    st.subheader("🧠 Final Answer")
+    st.subheader(" Final Answer")
     st.markdown(f"<div class='answer-box'>{last['answer']}</div>", unsafe_allow_html=True)
 
     # -----------------------------
@@ -234,7 +234,7 @@ if st.session_state.chat_history:
 # -----------------------------
 # CHAT HISTORY
 # -----------------------------
-st.subheader("📝 Chat History")
+st.subheader(" Chat History")
 for chat in st.session_state.chat_history:
     st.write(f"### Q: {chat['question']}")
     st.markdown(f"<div class='answer-box'>{chat['answer']}</div>", unsafe_allow_html=True)
